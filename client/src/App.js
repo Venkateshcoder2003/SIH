@@ -1,28 +1,72 @@
 
-// // src/App.js
-// import React from 'react';
-// import Dashboard from './components/Dashboard';
-// import './App.css';
+
+// import React, { useState } from 'react';
+// import AadharVerifyAPI from './components/adharVerify/AadharVerifyAPI';
+// import InitialAuthPage from './components/adharVerify/InitialAuthPage';
+// import RegistrationForm from './components/RegistrationForm';
 
 // function App() {
+//   const [userState, setUserState] = useState('aadharVerification'); // 'aadharVerification', 'initial', 'registered', 'loggedIn'
+
+//   const handleAadharVerificationComplete = () => {
+//     setUserState('initial');
+//   };
+
+//   const handleRegistrationComplete = () => {
+//     setUserState('registered');
+//   };
+
+//   const handleLoginComplete = () => {
+//     setUserState('loggedIn');
+//   };
+
 //   return (
-//     <div className="App">
-//       <Dashboard />
+//     <div className="bg-gray-100 min-h-screen">
+//       <div className="container mx-auto p-4">
+//         <h1 className="text-3xl font-bold mb-4">Farm Unity</h1>
+//         {userState === 'aadharVerification' && (
+//           <AadharVerifyAPI onVerificationComplete={handleAadharVerificationComplete} />
+//         )}
+//         {userState === 'initial' && (
+//           <InitialAuthPage
+//             onRegistrationComplete={handleRegistrationComplete}
+//             onLoginComplete={handleLoginComplete}
+//           />
+//         )}
+//         {(userState === 'registered' || userState === 'loggedIn') && <RegistrationForm />}
+//       </div>
 //     </div>
 //   );
 // }
 
 // export default App;
 
-import React from 'react';
+import React, { useState } from 'react';
+import InitialAuthPage from './components/adharVerify/InitialAuthPage';
 import RegistrationForm from './components/RegistrationForm';
 
 function App() {
+  const [userState, setUserState] = useState('initial'); // 'initial', 'loggedIn'
+
+  const handleRegistrationComplete = () => {
+    setUserState('loggedIn');
+  };
+
+  const handleLoginComplete = () => {
+    setUserState('loggedIn');
+  };
+
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="container mx-auto p-4">
         <h1 className="text-3xl font-bold mb-4">Farm Unity</h1>
-        <RegistrationForm />
+        {userState === 'initial' && (
+          <InitialAuthPage
+            onRegistrationComplete={handleRegistrationComplete}
+            onLoginComplete={handleLoginComplete}
+          />
+        )}
+        {userState === 'loggedIn' && <RegistrationForm />}
       </div>
     </div>
   );

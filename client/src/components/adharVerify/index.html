@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aadhar Verify API</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <nav class="navbar bg-body-tertiary shadow-sm border-bottom">
+        <div class="container justify-content-center">
+            <a class="navbar-brand" href="#">
+                <img src="./images/aadhar_logo.jpg" alt="Logo" width="30" height="24"
+                    class="d-inline-block align-text-top fw-bold">
+                Aadhar Verify API
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+
+        <!-- enter your aadhar no -->
+        <div class="card col-md-5 mx-auto my-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="my-3 text-center">Enter Your Aadhar Card No</h5>
+                <div class="input-group ">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-fingerprint"></i></span>
+                    <input type="text" class="form-control" placeholder="enter your 12 digit aadhar no"
+                        aria-label="Username" aria-describedby="basic-addon1">
+
+                </div>
+                <div id="emailHelp" class="form-text mb-3 text-danger">this is a example of error message
+                </div>
+                <button class="btn btn-danger w-100">
+                    <i class="bi bi-send"></i> SEND OTP
+                </button>
+                <button class="btn btn-danger w-100 my-2" disabled>
+                    <div class="spinner-border spinner-border-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div> SEND OTP
+                </button>
+            </div>
+        </div>
+
+        <!-- enter otp-->
+        <div class="card col-md-5 mx-auto my-3 shadow-sm">
+            <div class="card-body">
+                <h5 class="my-3 text-center">Enter OTP Sended To Your Registered Mobile No</h5>
+                <div class="input-group ">
+                    <span class="input-group-text" id="basic-addon1"><i class="bi bi-phone"></i></span>
+                    <input type="text" class="form-control" placeholder="######" aria-label="Username"
+                        aria-describedby="basic-addon1">
+
+                </div>
+                <div id="emailHelp" class="form-text mb-3 text-danger">this is a example of error message
+                </div>
+                <button class="btn btn-primary w-100">
+                    <i class="bi bi-shield-check"></i> VERIFY OTP
+                </button>
+                <button class="btn btn-primary w-100 my-2" disabled>
+                    <div class="spinner-border spinner-border-sm" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div> VERIFY OTP
+                </button>
+            </div>
+        </div>
+
+        <!-- enter otp-->
+        <div class="card col-md-5 mx-auto my-3 shadow-sm">
+            <div class="card-body">
+                <h5>Aadhar Card Info</h5>
+                <div class="d-flex gap-3 border rounded p-2">
+                    <img src="data:image/jpeg;base64,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"
+                        width="85px" class="rounded">
+                    <div>
+                        <div class="fs-5 fw-bold"><i class="bi bi-fingerprint"></i> 326585698545</div>
+                        <div class="fs-6"><b>Name :</b> Pankaj Sharma</div>
+                        <div class="fs-6"><b>Gender :</b> M</div>
+                        <div class="fs-6"><b>DOB :</b> 08-03-1945</div>
+
+
+
+                    </div>
+                </div>
+
+                <div class=" border rounded p-2 mt-2">
+                    <div class="fw-bold fs-5">Address</div>
+                    <div>
+                        C/O: Sudhir Sharma, 2016 Phase-3, P.T Colony , Saroj Vihar, Delhi South Delhi 110022</div>
+                </div>
+                <button class="btn btn-primary w-100 mt-3">
+                    <i class="bi bi-shield-check"></i> VERIFY ANOTHER AADHAR CARD
+                </button>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+
+</body>
+
+</html>
