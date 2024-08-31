@@ -1,19 +1,12 @@
-
-
 // import React, { useState } from 'react';
-// import AadharVerifyAPI from './components/adharVerify/AadharVerifyAPI';
-// import InitialAuthPage from './components/adharVerify/InitialAuthPage';
+// import InitialAuthPage from './components/adharVerify/LoginForm';
 // import RegistrationForm from './components/RegistrationForm';
 
 // function App() {
-//   const [userState, setUserState] = useState('aadharVerification'); // 'aadharVerification', 'initial', 'registered', 'loggedIn'
-
-//   const handleAadharVerificationComplete = () => {
-//     setUserState('initial');
-//   };
+//   const [userState, setUserState] = useState('initial'); // 'initial', 'loggedIn'
 
 //   const handleRegistrationComplete = () => {
-//     setUserState('registered');
+//     setUserState('loggedIn');
 //   };
 
 //   const handleLoginComplete = () => {
@@ -24,16 +17,13 @@
 //     <div className="bg-gray-100 min-h-screen">
 //       <div className="container mx-auto p-4">
 //         <h1 className="text-3xl font-bold mb-4">Farm Unity</h1>
-//         {userState === 'aadharVerification' && (
-//           <AadharVerifyAPI onVerificationComplete={handleAadharVerificationComplete} />
-//         )}
 //         {userState === 'initial' && (
 //           <InitialAuthPage
 //             onRegistrationComplete={handleRegistrationComplete}
 //             onLoginComplete={handleLoginComplete}
 //           />
 //         )}
-//         {(userState === 'registered' || userState === 'loggedIn') && <RegistrationForm />}
+//         {userState === 'loggedIn' && <RegistrationForm />}
 //       </div>
 //     </div>
 //   );
@@ -42,7 +32,7 @@
 // export default App;
 
 import React, { useState } from 'react';
-import InitialAuthPage from './components/adharVerify/InitialAuthPage';
+import LoginForm from './components/adharVerify/LoginForm'
 import RegistrationForm from './components/RegistrationForm';
 
 function App() {
@@ -61,7 +51,7 @@ function App() {
       <div className="container mx-auto p-4">
         <h1 className="text-3xl font-bold mb-4">Farm Unity</h1>
         {userState === 'initial' && (
-          <InitialAuthPage
+          <LoginForm
             onRegistrationComplete={handleRegistrationComplete}
             onLoginComplete={handleLoginComplete}
           />
