@@ -26,6 +26,8 @@
 //         e.preventDefault();
 //         console.log('Submitted data:', { userType, ...formData });
 //         toast.success('Registration successful!');
+//         onRegistrationComplete();
+
 //     };
 
 //     const renderFormFields = () => {
@@ -201,8 +203,7 @@ function RegistrationForm({ onRegistrationComplete }) {
         e.preventDefault();
         console.log('Submitted data:', { userType, ...formData });
         toast.success('Registration successful!');
-        // Call the onRegistrationComplete prop to notify the parent component
-        onRegistrationComplete();
+        onRegistrationComplete(); // Call this when registration is successful
     };
 
     const renderFormFields = () => {
