@@ -1,15 +1,19 @@
+
+
+
 // import React, { useState } from 'react';
-// import InitialAuthPage from './components/adharVerify/LoginForm';
+// import LoginForm from './components/adharVerify/LoginForm';
 // import RegistrationForm from './components/RegistrationForm';
+// import Dashboard from './components/FarmerDashboard/Dashboard'
 
 // function App() {
-//   const [userState, setUserState] = useState('initial'); // 'initial', 'loggedIn'
+//   const [userState, setUserState] = useState('initial'); // 'initial', 'registering', 'loggedIn'
 
-//   const handleRegistrationComplete = () => {
-//     setUserState('loggedIn');
+//   const handleNewUserSignup = () => {
+//     setUserState('registering');
 //   };
 
-//   const handleLoginComplete = () => {
+//   const handleUserAuthenticated = () => {
 //     setUserState('loggedIn');
 //   };
 
@@ -18,12 +22,17 @@
 //       <div className="container mx-auto p-4">
 //         <h1 className="text-3xl font-bold mb-4">Farm Unity</h1>
 //         {userState === 'initial' && (
-//           <InitialAuthPage
-//             onRegistrationComplete={handleRegistrationComplete}
-//             onLoginComplete={handleLoginComplete}
+//           <LoginForm
+//             onNewUserSignup={handleNewUserSignup}
+//             onExistingUserLogin={handleUserAuthenticated}
 //           />
 //         )}
-//         {userState === 'loggedIn' && <RegistrationForm />}
+//         {userState === 'registering' && (
+//           <RegistrationForm
+//             onRegistrationComplete={handleUserAuthenticated}
+//           />
+//         )}
+//         {userState === 'loggedIn' && <Dashboard />}
 //       </div>
 //     </div>
 //   );
@@ -31,18 +40,20 @@
 
 // export default App;
 
+
 import React, { useState } from 'react';
-import LoginForm from './components/adharVerify/LoginForm'
+import LoginForm from './components/adharVerify/LoginForm';
 import RegistrationForm from './components/RegistrationForm';
+import Dashboard from './components/FarmerDashboard/Dashboard'
 
 function App() {
-  const [userState, setUserState] = useState('initial'); // 'initial', 'loggedIn'
+  const [userState, setUserState] = useState('initial'); // 'initial', 'registering', 'loggedIn'
 
-  const handleRegistrationComplete = () => {
-    setUserState('loggedIn');
+  const handleNewUserSignup = () => {
+    setUserState('registering');
   };
 
-  const handleLoginComplete = () => {
+  const handleUserAuthenticated = () => {
     setUserState('loggedIn');
   };
 
@@ -52,11 +63,16 @@ function App() {
         <h1 className="text-3xl font-bold mb-4">Farm Unity</h1>
         {userState === 'initial' && (
           <LoginForm
-            onRegistrationComplete={handleRegistrationComplete}
-            onLoginComplete={handleLoginComplete}
+            onNewUserSignup={handleNewUserSignup}
+            onExistingUserLogin={handleUserAuthenticated}
           />
         )}
-        {userState === 'loggedIn' && <RegistrationForm />}
+        {userState === 'registering' && (
+          <RegistrationForm
+            onRegistrationComplete={handleUserAuthenticated}
+          />
+        )}
+        {userState === 'loggedIn' && <Dashboard />}
       </div>
     </div>
   );

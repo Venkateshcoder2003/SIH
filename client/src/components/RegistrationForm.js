@@ -1,4 +1,5 @@
 
+
 // import React, { useState, useEffect } from 'react';
 // import toast, { Toaster } from 'react-hot-toast';
 
@@ -8,7 +9,7 @@
 //     const [loading, setLoading] = useState(true);
 
 //     useEffect(() => {
-//         const timer = setTimeout(() => setLoading(false), 3000);
+//         const timer = setTimeout(() => setLoading(false), 2000);
 //         return () => clearTimeout(timer);
 //     }, []);
 
@@ -48,13 +49,41 @@
 //             </div>
 //         );
 
+//         const renderSelect = (name, label, options) => (
+//             <div>
+//                 <label htmlFor={name} className={labelClasses}>
+//                     {label}
+//                 </label>
+//                 <select
+//                     id={name}
+//                     name={name}
+//                     onChange={handleInputChange}
+//                     required
+//                     className={inputClasses}
+//                 >
+//                     <option value="">Select {label}</option>
+//                     {options.map((option, index) => (
+//                         <option key={index} value={option.value}>
+//                             {option.label}
+//                         </option>
+//                     ))}
+//                 </select>
+//             </div>
+//         );
+
 //         return (
 //             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
 //                 {userType === 'farmOwner' && (
 //                     <>
 //                         {renderInput("name", "Full Name")}
 //                         {renderInput("location", "Farm Location")}
-//                         {renderInput("farmType", "Type of Farm")}
+//                         {renderSelect("farmType", "Type of Farm", [
+//                             { value: "crop", label: "Crop Farm (ಹಣ್ಣು ಹಂಪಲು ಹಣ್ಣು)" },
+//                             { value: "dairy", label: "Dairy Farm (ಹಾಲು ಉತ್ಪಾದನೆ)" },
+//                             { value: "poultry", label: "Poultry Farm (ಕೋಳಿ ಸಾಕಾಣಿಕೆ)" },
+//                             { value: "fishery", label: "Fishery (ಮೀನುಗಾರಿಕೆ)" },
+//                             { value: "horticulture", label: "Horticulture (ತೋಟಗಾರಿಕೆ)" },
+//                         ])}
 //                         {renderInput("preferredLabor", "Preferred Labor Type")}
 //                         {renderInput("contactInfo", "Contact Information")}
 //                     </>
@@ -64,7 +93,13 @@
 //                         {renderInput("name", "Full Name")}
 //                         {renderInput("skills", "Agricultural Skills")}
 //                         {renderInput("preferredWage", "Preferred Daily Wage", "number")}
-//                         {renderInput("preferredWork", "Preferred Work Type")}
+//                         {renderSelect("preferredWork", "Preferred Work Type", [
+//                             { value: "harvesting", label: "Harvesting (ಪಿಕಿಂಗ್)" },
+//                             { value: "plowing", label: "Plowing (ನೋಡುವಿಕೆ)" },
+//                             { value: "irrigation", label: "Irrigation (ನೀರು ಬಿಡುವಿಕೆ)" },
+//                             { value: "seeding", label: "Seeding (ಬೀಜ ಬೀಜಿಸುವಿಕೆ)" },
+//                             { value: "fertilizing", label: "Fertilizing (ಊರ್ವರಕ ಹಾಕುವಿಕೆ)" },
+//                         ])}
 //                         {renderInput("preferredLocation", "Preferred Work Location")}
 //                         {renderInput("availability", "Availability (e.g., Full-time, Seasonal)")}
 //                         {renderInput("contactInfo", "Contact Information")}
@@ -143,13 +178,13 @@
 import React, { useState, useEffect } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
-function RegistrationForm() {
+function RegistrationForm({ onRegistrationComplete }) {
     const [userType, setUserType] = useState('');
     const [formData, setFormData] = useState({});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const timer = setTimeout(() => setLoading(false), 3000);
+        const timer = setTimeout(() => setLoading(false), 2000);
         return () => clearTimeout(timer);
     }, []);
 
@@ -166,6 +201,8 @@ function RegistrationForm() {
         e.preventDefault();
         console.log('Submitted data:', { userType, ...formData });
         toast.success('Registration successful!');
+        // Call the onRegistrationComplete prop to notify the parent component
+        onRegistrationComplete();
     };
 
     const renderFormFields = () => {
