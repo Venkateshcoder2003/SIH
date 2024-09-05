@@ -101,6 +101,54 @@ const CropPrices = () => {
 
 export default CropPrices;
 
+// const https = require('https');
+
+// const apiKey = 'YOUR_API_KEY_HERE';
+// const apiBaseURL = 'https://api.agromonitoring.com/agro/1.0';
+
+// const options = {
+//     method: 'GET',
+//     hostname: 'api.agromonitoring.com',
+//     path: '/agro/1.0/price',
+//     headers: {
+//         Authorization: `Bearer ${apiKey}`,
+//     },
+// };
+
+// const req = https.request(options, res => {
+//     let data = '';
+//     res.on('data', chunk => {
+//         data += chunk;
+//     });
+//     res.on('end', () => {
+//         console.log(JSON.parse(data));
+//     });
+// });
+
+// req.on('error', error => {
+//     console.error(error);
+// });
+
+// req.end();
+
+
+// const axios = require('axios');
+
+// const apiKey = 'YOUR_API_KEY_HERE';
+// const apiBaseURL = 'https://api.agromonitoring.com/agro/1.0';
+
+// axios.get(`${apiBaseURL}/price`, {
+//     headers: {
+//         Authorization: `Bearer ${apiKey}`,
+//     },
+// })
+//     .then(response => {
+//         const data = response.data;
+//         console.log(data);
+//     })
+//     .catch(error => {
+//         console.error(error);
+//     });
 
 
 // import React, { useState, useEffect } from 'react';
@@ -286,3 +334,146 @@ export default CropPrices;
 // };
 
 // export default Dashboard;
+
+
+// //karnataka crop api
+// import React, { useState, useEffect } from 'react';
+// import axios from 'axios';
+// import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+
+// const API_KEY = 'your_api_key_here'; // Replace with your actual API key
+// const API_BASE_URL = 'https://api.example.com/karnataka-agri'; // Hypothetical API
+
+// const KarnatakaDistrictPrices = () => {
+//     const [districts, setDistricts] = useState([]);
+//     const [selectedDistrict, setSelectedDistrict] = useState(null);
+//     const [crops, setCrops] = useState([]);
+//     const [selectedCrop, setSelectedCrop] = useState(null);
+//     const [priceData, setPriceData] = useState([]);
+//     const [isLoading, setIsLoading] = useState(false);
+//     const [error, setError] = useState(null);
+
+//     useEffect(() => {
+//         fetchDistricts();
+//     }, []);
+
+//     useEffect(() => {
+//         if (selectedDistrict) {
+//             fetchCrops(selectedDistrict);
+//         }
+//     }, [selectedDistrict]);
+
+//     useEffect(() => {
+//         if (selectedDistrict && selectedCrop) {
+//             fetchPriceData(selectedDistrict, selectedCrop);
+//         }
+//     }, [selectedDistrict, selectedCrop]);
+
+//     const fetchDistricts = async () => {
+//         setIsLoading(true);
+//         setError(null);
+//         try {
+//             const response = await axios.get(`${API_BASE_URL}/districts?api_key=${API_KEY}`);
+//             setDistricts(response.data);
+//         } catch (error) {
+//             console.error("Failed to fetch districts:", error);
+//             setError("Failed to fetch districts. Please try again later.");
+//         } finally {
+//             setIsLoading(false);
+//         }
+//     };
+
+//     const fetchCrops = async (district) => {
+//         setIsLoading(true);
+//         setError(null);
+//         try {
+//             const response = await axios.get(`${API_BASE_URL}/crops?district=${district}&api_key=${API_KEY}`);
+//             setCrops(response.data);
+//         } catch (error) {
+//             console.error("Failed to fetch crops:", error);
+//             setError("Failed to fetch crops. Please try again later.");
+//         } finally {
+//             setIsLoading(false);
+//         }
+//     };
+
+//     const fetchPriceData = async (district, crop) => {
+//         setIsLoading(true);
+//         setError(null);
+//         try {
+//             const response = await axios.get(`${API_BASE_URL}/prices?district=${district}&crop=${crop}&api_key=${API_KEY}`);
+//             setPriceData(response.data.map(item => ({
+//                 date: new Date(item.date).toISOString().split('T')[0],
+//                 price: item.price
+//             })));
+//         } catch (error) {
+//             console.error("Failed to fetch price data:", error);
+//             setError("Failed to fetch price data. Please try again later.");
+//         } finally {
+//             setIsLoading(false);
+//         }
+//     };
+
+//     return (
+//         <div className="p-4">
+//             <h2 className="text-2xl font-semibold mb-4">Karnataka District Market Prices</h2>
+//             {isLoading ? (
+//                 <p>Loading data...</p>
+//             ) : error ? (
+//                 <p className="text-red-500">{error}</p>
+//             ) : (
+//                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+//                     <div>
+//                         <h3 className="text-lg font-semibold mb-2">Select District</h3>
+//                         <select
+//                             className="w-full p-2 border rounded"
+//                             onChange={(e) => setSelectedDistrict(e.target.value)}
+//                             value={selectedDistrict || ''}
+//                         >
+//                             <option value="">Select a district</option>
+//                             {districts.map((district) => (
+//                                 <option key={district} value={district}>{district}</option>
+//                             ))}
+//                         </select>
+
+//                         {selectedDistrict && (
+//                             <>
+//                                 <h3 className="text-lg font-semibold mt-4 mb-2">Select Crop</h3>
+//                                 <select
+//                                     className="w-full p-2 border rounded"
+//                                     onChange={(e) => setSelectedCrop(e.target.value)}
+//                                     value={selectedCrop || ''}
+//                                 >
+//                                     <option value="">Select a crop</option>
+//                                     {crops.map((crop) => (
+//                                         <option key={crop} value={crop}>{crop}</option>
+//                                     ))}
+//                                 </select>
+//                             </>
+//                         )}
+//                     </div>
+//                     <div>
+//                         {selectedDistrict && selectedCrop && priceData.length > 0 && (
+//                             <>
+//                                 <h3 className="text-lg font-semibold mb-2">
+//                                     {selectedCrop} Price Trend in {selectedDistrict}
+//                                 </h3>
+//                                 <ResponsiveContainer width="100%" height={300}>
+//                                     <LineChart data={priceData}>
+//                                         <CartesianGrid strokeDasharray="3 3" />
+//                                         <XAxis dataKey="date" />
+//                                         <YAxis />
+//                                         <Tooltip />
+//                                         <Line type="monotone" dataKey="price" stroke="#8884d8" />
+//                                     </LineChart>
+//                                 </ResponsiveContainer>
+//                             </>
+//                         )}
+//                     </div>
+//                 </div>
+//             )}
+//         </div>
+//     );
+// };
+
+// export default KarnatakaDistrictPrices;
