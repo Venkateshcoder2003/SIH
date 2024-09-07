@@ -17,7 +17,7 @@
 
 // // Routes
 // app.use('/api', userRoutes);
-// app.use('/api/registration', registrationRoutes);
+// app.use('/api', registrationRoutes);
 
 // // Error handling middleware
 // // app.use((err, req, res, next) => {
@@ -34,6 +34,9 @@
 // app.listen(port, () => {
 //     console.log(`Server Running on port ${port}`);
 // });
+
+
+
 require("dotenv").config();
 const express = require('express');
 const app = express();
