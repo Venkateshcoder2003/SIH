@@ -3,6 +3,7 @@ const router = express.Router();
 const FarmOwner = require('../models/FarmerOwner');
 const Laborer = require('../models/Laborer');
 const ServiceProvider = require('../models/ServiceProvider');
+const Service = require('../models/Services.js')
 
 
 
@@ -147,5 +148,67 @@ router.post('/serviceprovider', async (req, res) => {
     }
 });
 
+router.post('/logout', async (req, res) => {
+    try {
+        const { userId, userType } = req.body;
+
+        if (!userId || !userType) {
+            return res.status(400).json({ message: 'User ID and user type are required' });
+        }
+
+        let user;
+        switch (userType) {
+            case 'farmOwner':
+                user = await FarmOwner.findByIdAndDelete(userId);
+                break;
+            case 'laborer':
+                user = await Laborer.findByIdAndDelete(userId);
+                break;
+            case 'serviceProvider':
+                user = await ServiceProvider.findByIdAndDelete(userId);
+                break;
+            default:
+                return res.status(400).json({ message: 'Invalid user type' });
+        }
+
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+
+        res.status(200).json({ message: 'Logout successful. User data deleted.' });
+    } catch (error) {
+        console.error('Error during logout:', error);
+        res.status(500).json({ message: 'Server error during logout' });
+    }
+});
+
+
+
+
+// Add a new service
+router.post('/services', async (req, res) => {
+    const service = new Service({
+        name: req.body.name,
+        amount: req.body.amount,
+        mobileNumber: req.body.mobileNumber
+    });
+
+    try {
+        const newService = await service.save();
+        res.status(201).json(newService);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+// Get all services
+router.get('/services', async (req, res) => {
+    try {
+        const services = await Service.find();
+        res.json(services);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 
 module.exports = router;

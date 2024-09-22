@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { User, Calendar, Briefcase, DollarSign, Clock, MapPin, Phone, Mail, HelpCircle, LogOut, ArrowLeft } from 'lucide-react';
 
-const LaborDashboard = ({ onBackClick }) => {
+const LaborDashboard = ({ onBackClick, onLogout }) => {
     const [currentPage, setCurrentPage] = useState('profile');
-    const [laborProfile] = useState({
+    const [laborProfile, setLaborProfile] = useState({
         name: 'Rahul Kumar',
         skill: 'Harvesting',
         experience: '5 years',
@@ -25,6 +25,28 @@ const LaborDashboard = ({ onBackClick }) => {
         { icon: <HelpCircle className="w-5 h-5 mr-3" />, text: "Help & Support", page: 'support' },
         { icon: <LogOut className="w-5 h-5 mr-3" />, text: "Logout", page: 'logout' },
     ];
+
+    useEffect(() => {
+        if (currentPage === 'logout') {
+            handleLogout();
+        }
+    }, [currentPage]);
+
+    const handleLogout = async () => {
+        try {
+            // Simulating an API call to delete labor data from the database
+            await new Promise(resolve => setTimeout(resolve, 1000));
+
+            // Clear local state
+            setLaborProfile(null);
+
+            // Call the onLogout prop to handle app-level logout logic
+            onLogout();
+        } catch (error) {
+            console.error('Error during logout:', error);
+            // Handle error (e.g., show an error message to the user)
+        }
+    };
 
     const renderProfile = () => (
         <div className="bg-white shadow-sm rounded-lg p-6 mb-6">
@@ -146,7 +168,7 @@ const LaborDashboard = ({ onBackClick }) => {
                     <div className="flex items-center mb-4">
                         <img src="/api/placeholder/40/40" alt="Profile" className="w-10 h-10 rounded-full mr-3" />
                         <div>
-                            <h2 className="font-bold">{laborProfile.name}</h2>
+                            <h2 className="font-bold">{laborProfile?.name || 'Guest'}</h2>
                             <p className="text-sm text-green-200">Laborer ID: L12345</p>
                         </div>
                     </div>
@@ -196,3 +218,4 @@ const LaborDashboard = ({ onBackClick }) => {
 };
 
 export default LaborDashboard;
+
