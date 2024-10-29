@@ -4,6 +4,7 @@ const FarmOwner = require('../models/FarmerOwner');
 const Laborer = require('../models/Laborer');
 const ServiceProvider = require('../models/ServiceProvider');
 const Service = require('../models/Services.js')
+const Labour = require('../models/Labourers.js')
 
 
 
@@ -185,6 +186,44 @@ router.post('/logout', async (req, res) => {
 
 
 
+
+
+
+
+
+
+
+
+//Add a new labourers
+router.post('/labourers', async (req, res) => {
+    const labour = new Labour({
+        name: req.body.name,
+        amount: req.body.amount,
+        mobileNumber: req.body.mobileNumber,
+        date: req.body.date
+    })
+
+    try {
+        const newLabour = await Labour.save();
+        res.status(201).json(newLabour);
+    }
+    catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+})
+
+//Loading the labourers in farmer dashboard 
+
+router.get('/labourers', async (req, res) => {
+    try {
+        const labourers = await Labour.find();
+        res.json(labourers);
+    }
+    catch {
+        res.status(500).json({ message: error.message });
+    }
+})
+
 // Add a new service
 router.post('/services', async (req, res) => {
     const service = new Service({
@@ -192,7 +231,6 @@ router.post('/services', async (req, res) => {
         amount: req.body.amount,
         mobileNumber: req.body.mobileNumber
     });
-
     try {
         const newService = await service.save();
         res.status(201).json(newService);
