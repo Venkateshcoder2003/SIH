@@ -193,24 +193,33 @@ router.post('/logout', async (req, res) => {
 
 
 
-
-//Add a new labourers
+// Add a new labourer
 router.post('/labourers', async (req, res) => {
     const labour = new Labour({
         name: req.body.name,
         amount: req.body.amount,
         mobileNumber: req.body.mobileNumber,
-        date: req.body.date
-    })
+        date: req.body.date,
+        skills: req.body.skills
+    });
 
     try {
-        const newLabour = await Labour.save();
+        const newLabour = await labour.save(); // Fixed: Use the instance 'labour' instead of Labour
         res.status(201).json(newLabour);
-    }
-    catch (error) {
+    } catch (error) {
         res.status(400).json({ message: error.message });
     }
-})
+});
+
+// Get all labourers
+router.get('/labourers', async (req, res) => {
+    try {
+        const labourers = await Labour.find();
+        res.json(labourers);
+    } catch (error) { // Fixed: Added error parameter
+        res.status(500).json({ message: error.message });
+    }
+});
 
 //Loading the labourers in farmer dashboard 
 

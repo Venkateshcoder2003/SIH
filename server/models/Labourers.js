@@ -9,7 +9,8 @@ const labourSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
-    }
+    },
+    skills: String
 });
 
 
