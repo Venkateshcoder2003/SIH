@@ -18,7 +18,7 @@ function App() {
     const timer = setTimeout(() => {
       setAnimationComplete(true);
       setUserState('deviceSelection');
-    }, 5000); // Animation duration
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, []);
